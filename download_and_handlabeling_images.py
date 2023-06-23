@@ -131,6 +131,9 @@ def label_image(image_name, image_url):
 """#### Download images and open GUI for labeling"""
 
 # loop through list of tiles to get tile z/x/y to plug in to Mapillary endpoints and make request
+# reduce number of images by only looking at every x. image
+rate = 10
+i = 0
 for tile in tiles:
     tile_url = (
         "https://tiles.mapillary.com/maps/vtp/{}/2/{}/{}/{}?access_token={}".format(
@@ -154,22 +157,24 @@ for tile in tiles:
 
         # ensure feature falls inside bounding box since tiles can extend beyond
         if lng > west and lng < east and lat > south and lat < north:
-            # request the URL of each image
-            image_id = feature["properties"]["id"]
-            header = {"Authorization": "OAuth {}".format(access_token)}
-            # chose image size to download
-            # thumb_256_url - string, URL to the 256px wide thumbnail.
-            # thumb_1024_url - string, URL to the 1024px wide thumbnail.
-            # thumb_2048_url - string, URL to the 2048px wide thumbnail.
-            image_size = "thumb_1024_url"
-            url = "https://graph.mapillary.com/{}?fields={}".format(
-                image_id, image_size
-            )
-            r = requests.get(url, headers=header)
-            data = r.json()
-            image_url = data[image_size]
+            i += 1
+            if i % rate == 0:
+                # request the URL of each image
+                image_id = feature["properties"]["id"]
+                header = {"Authorization": "OAuth {}".format(access_token)}
+                # chose image size to download
+                # thumb_256_url - string, URL to the 256px wide thumbnail.
+                # thumb_1024_url - string, URL to the 1024px wide thumbnail.
+                # thumb_2048_url - string, URL to the 2048px wide thumbnail.
+                image_size = "thumb_1024_url"
+                url = "https://graph.mapillary.com/{}?fields={}".format(
+                    image_id, image_size
+                )
+                r = requests.get(url, headers=header)
+                data = r.json()
+                image_url = data[image_size]
 
-            # GUI for labeling:
-            label_image(image_id, image_url)
+                # GUI for labeling:
+                label_image(image_id, image_url)
 
 print("Done")
