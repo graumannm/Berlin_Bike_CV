@@ -18,7 +18,7 @@ We therefore set out to automate the detection of bike lanes and identification 
 
 ## Bike lane identification
 
-The first step of our pipeline was to identify whether there was a bike lane present in any given image taken from Mapillary. We did this by performing semantic segmentation. We used a Mask2Former vision transformer that was pretrained on the [Mapillary Vistas dataset](https://www.mapillary.com/dataset/vistas).
+The first step of our pipeline was to identify whether there was a bike lane present in any given image taken from Mapillary. We did this by performing semantic segmentation. We used a [Mask2Former vision transformer](https://huggingface.co/facebook/mask2former-swin-large-mapillary-vistas-semantic) that was pretrained on the [Mapillary Vistas dataset](https://www.mapillary.com/dataset/vistas).
 
 ## Safety labelling of bike lanes
 
