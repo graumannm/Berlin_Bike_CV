@@ -1,5 +1,7 @@
 # Bike Map: Using Computer Vision for Bike Trip Routing
 
+![graph_full_map_plus_route](https://github.com/graumannm/Berlin_Bike_CV/assets/130439108/8e64816f-ee14-423d-9bcf-8ad6350c7c11)
+
 ## About the project
 We wanted to build a tool that optimises cycling around Berlin by avoiding cobblestones and giving preference to safe bike paths. We do this by using up-to-date street view images of Berlin from [Mapillary.com](https://www.mapillary.com/) to classify streets based on their surface and safety. 
 
