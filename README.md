@@ -10,7 +10,9 @@ However, initiatives like pop-up bike lanes increased bicyle traffic by 25% sinc
 ## Plan of action
 We therefore set out to automate the detection of bike lanes and identification of road surfaces using computer vision models and classification. Using street view images from [Mapillary.com](https://www.mapillary.com/), we were able to access over 10 million recent pictures of Berlin (in lieu of Google street view images). 
 
-# Happy cycling!
+## Happy cycling!
+
+# Documentation
 
 ## Safety labelling of bike lanes
 
