@@ -16,6 +16,10 @@ We therefore set out to automate the detection of bike lanes and identification 
 
 # Documentation
 
+## Bike lane identification
+
+The first step of our pipeline was to identify whether there was a bike lane present in any given image taken from Mapillary. We did this by performing semantic segmentation. We used a Mask2Former vision transformer that was pretrained on the [Mapillary Vistas dataset](https://www.mapillary.com/dataset/vistas).
+
 ## Safety labelling of bike lanes
 
 Because bike lanes are visually diverse, we applied an unsupervised learning approach to cluster bike lane images based on their visual features in order to categorize them. Those clusters were then visually inspected and labelled based on what bike lanes they contained. Based on our clustering results, new bike lane images will be soft labelled by assigning them to the cluster to which (medoid) they have the highest cosine similarity.
@@ -26,3 +30,11 @@ The clustering is performed in 4 steps.
 2) The elbow method is used to investigate the optimal number of clusters to explore in [s02_elbow_4_kmedoids.ipynb](https://github.com/graumannm/Berlin_Bike_CV/blob/main/s02_elbow_4_kmedoids.ipynb)
 3) Perform k-medoids clustering with 2 clusters in [s03_kmedoids_clustering.ipynb](https://github.com/graumannm/Berlin_Bike_CV/blob/main/s03_kmedoids_clustering.ipynb)
 4) Visualize the clustering results using t-SNE in [s04_tSNE_visualization.ipynb](https://github.com/graumannm/Berlin_Bike_CV/blob/main/s04_tSNE_visualization.ipynb)
+
+## Road surface classification
+
+If, however, no bike lane was initially detected, we would run the image through a small EfficientNetV2. We trained the model further on around 450 handlabelled images of both asphalt and cobblestone. The result was a model that gave us a binary output of either cobblestones or asphalt.
+
+## Mapping and routing
+
+Following this, we then had an output label for every road in Berlin. We then wanted to put this label onto a map with an assigned weight, according to the road surface and level of safety. This was achieved by converting an OSM map of berlin into a NetworkX graph and matching the coordinates of each label with the coordinates of each edge.
